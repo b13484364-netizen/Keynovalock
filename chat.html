@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>غرفة المحادثة الآمنة</title>
+</head>
+<body>
+  <h2>مرحبًا بك في الغرفة الآمنة</h2>
+  <textarea placeholder="اكتب رسالتك هنا..."></textarea>
+  <br>
+  <input type="file" id="fileInput">
+  <button onclick="uploadFile()">رفع ملف</button>
+
+  <script>
+    function uploadFile() {
+      const file = document.getElementById('fileInput').files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+
+      fetch('/upload', {
+        method: 'POST',
+        body: formData
+      }).then(res => res.json())
+        .then(data => {
+          alert('تم رفع الملف بنجاح: ' + data.filename);
+        });
+    }
+  </script>
+</body>
+</html>
